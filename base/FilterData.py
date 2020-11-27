@@ -60,6 +60,3 @@ print(setResult)
 setResult = filter(lambda x: x % 3 == 0, setDemo)
 print("方式2(filter函数)处理结果：")
 print(set(setResult))
-
-
-

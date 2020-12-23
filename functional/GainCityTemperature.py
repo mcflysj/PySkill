@@ -7,14 +7,14 @@ import requests
 
 
 class WeatherIterator(Iterator):
-    def __init__(self, caties):
-        self.caties = caties
+    def __init__(self, cities):
+        self.cities = cities
         self.index = 0
 
     def __next__(self):
-        if self.index == len(self.caties):
+        if self.index == len(self.cities):
             raise StopIteration
-        city = self.caties[self.index]
+        city = self.cities[self.index]
         self.index += 1
         return self.get_weather(city)
 
@@ -22,6 +22,7 @@ class WeatherIterator(Iterator):
         url = 'http://wthrcdn.etouch.cn/weather_mini?city=' + city
         r = requests.get(url)
         data = r.json()['data']['forecast'][0]
+        # 使用元组的形式返回结果，只取接口调用结果中的部分信息
         return city, data['high'], data['low']
 
 
@@ -37,6 +38,6 @@ def show(w):
     for x in w:
         print(x)
 
-
+# 迭代器是一次性消费的，而可迭代对象可重复使用
 w = WeatherIterable(['北京', '上海', '广州', '深圳', '海口', '三亚'])
 show(w)

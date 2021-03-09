@@ -63,7 +63,7 @@ def find_address_from_GPS(GPS):
     :param GPS:
     :return:
     """
-    secret_key = ''
+    secret_key = 'P8MDgmP4bfytEkj8pyZgV5QT'
     if not GPS['GPS_information']:
         return '该照片无GPS信息'
     lat, lng = GPS['GPS_information']['GPSLatitude'], GPS['GPS_information']['GPSLongitude']

@@ -29,7 +29,7 @@ workbook.save('../data/excelDemo.xlsx')
 # end write excel
 
 # start read excel
-workbook = load_workbook('../data/excelDemo.xlsx')
+workbook = load_workbook('../../data/excelDemo.xlsx')
 print(workbook.sheetnames)
 sheet = workbook[workbook.sheetnames[0]]
 print(sheet.title)

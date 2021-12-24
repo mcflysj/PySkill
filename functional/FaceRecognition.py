@@ -37,6 +37,47 @@ def drawFaces(path, image_name):
         img.save(path + 'drawfaces_' + image_name)
 
 
+# 保存人脸图
+def saveFaces(image_name):
+    faces = detectFaces(image_name)
+    if faces:
+        # 将人脸保存在save_dir目录下。
+        # Image模块：Image.open获取图像句柄，crop剪切图像(剪切的区域就是detectFaces返回的坐标)，save保存。
+        save_dir = image_name.split('.')[0] + "_faces"
+        os.mkdir(save_dir)
+        count = 0
+        for (x1, y1, x2, y2) in faces:
+            file_name = os.path.join(save_dir, str(count) + ".jpg")
+            Image.open(image_name).crop((x1, y1, x2, y2)).save(file_name)
+            count += 1
+
+# 检测眼睛，返回坐标
+def detectEyes(image_name):
+    eye_cascade = cv2.CascadeClassifier(os.getcwd()+"\\..\\file\\haarcascade_eye.xml")
+    faces = detectFaces(image_name)
+
+    img = cv2.imread(image_name)
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    result = []
+    for (x1, y1, x2, y2) in faces:
+        roi_gray = gray[y1:y2, x1:x2]
+        eyes = eye_cascade.detectMultiScale(roi_gray, 1.3, 2)
+        for (ex, ey, ew, eh) in eyes:
+            result.append((x1 + ex, y1 + ey, x1 + ex + ew, y1 + ey + eh))
+    return result
+
+
+# 在原图像上框出眼睛.
+def drawEyes(image_name):
+    eyes = detectEyes(image_name)
+    if eyes:
+        img = Image.open(image_name)
+        draw_instance = ImageDraw.Draw(img)
+        for (x1, y1, x2, y2) in eyes:
+            draw_instance.rectangle((x1, y1, x2, y2), outline=(0, 0, 255))
+        img.save('draweyes_' + image_name)
+
+
 if __name__ == '__main__':
     time1 = datetime.now()
     result = detectFaces(os.getcwd() + "\\images\\group.jpg")
@@ -48,3 +89,5 @@ if __name__ == '__main__':
         print('图像中无人！！')
 
     drawFaces(os.getcwd() + "\\images\\", "group.jpg")
+    # saveFaces(os.getcwd()+"\\images\\group.jpg")
+    # drawEyes('people.jpg')

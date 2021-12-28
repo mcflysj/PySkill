@@ -78,6 +78,33 @@ def drawEyes(image_name):
         img.save('draweyes_' + image_name)
 
 
+# 检测笑脸
+def detectSmiles(image_name):
+    img = cv2.imread(image_name)
+    smiles_cascade = cv2.CascadeClassifier(os.getcwd()+"\\..\\file\\haarcascade_smile.xml")
+    if img.ndim == 3:
+        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    else:
+        gray = img  # if语句：如果img维度为3，说明不是灰度图，先转化为灰度图gray，如果不为3，也就是2，原图就是灰度图
+
+    smiles = smiles_cascade.detectMultiScale(gray, 4, 5)
+    result = []
+    for (x, y, width, height) in smiles:
+        result.append((x, y, x + width, y + height))
+    return result
+
+
+# 在原图像上框出笑脸
+def drawSmiles(image_name):
+    smiles = detectSmiles(image_name)
+    if smiles:
+        img = Image.open(image_name)
+        draw_instance = ImageDraw.Draw(img)
+        for (x1, y1, x2, y2) in smiles:
+            draw_instance.rectangle((x1, y1, x2, y2), outline=(100, 100, 0))
+        img.save('drawsmiles_' + image_name)
+
+
 if __name__ == '__main__':
     time1 = datetime.now()
     result = detectFaces(os.getcwd() + "\\images\\group.jpg")

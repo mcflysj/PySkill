@@ -25,6 +25,20 @@ This project aims to introduce the basic syntax of the Python programming langua
 
 Since this project is mainly focused on learning and teaching, deployment is relatively straightforward. You only need to follow the installation guide to install Python and copy the project files to your local computer to start learning and using them. If you wish to deploy the project to a server or share it with others, you can consider using a version control system (such as Git) to manage the code and share it through a code hosting platform (such as GitHub).
 
+**Contributing Guidelines**:
+
+We welcome anyone interested in this project to contribute. You can submit bug reports, feature suggestions, or code improvements. Before submitting code, please ensure that it follows Python's coding conventions and has passed necessary tests.
+
+**Code of Conduct**:
+
+We expect all participants in this project to adhere to the following code of conduct:
+
+- Respect others and engage in friendly communication.
+- Maintain an open mindset and embrace diverse viewpoints and opinions.
+- Obey laws and regulations, and refrain from posting illegal or harmful information.
+
+We hope to create a positive, healthy, and harmonious community atmosphere through these guidelines.
+
 
 [<img width="200" src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png"></img>](https://www.jetbrains.com/community/opensource/#support)
 
